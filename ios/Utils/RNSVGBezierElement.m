@@ -74,4 +74,3 @@ void RNSVGBezierElement_getBezierElements(void *info, const CGPathElement *eleme
 }
 
 @end
-

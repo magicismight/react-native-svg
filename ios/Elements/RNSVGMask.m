@@ -28,7 +28,7 @@
     if ([x isEqualTo:_x]) {
         return;
     }
-    
+
     _x = x;
     [self invalidate];
 }
@@ -38,7 +38,7 @@
     if ([y isEqualTo:_y]) {
         return;
     }
-    
+
     _y = y;
     [self invalidate];
 }
@@ -48,7 +48,7 @@
     if ([maskwidth isEqualTo:_maskwidth]) {
         return;
     }
-    
+
     _maskwidth = maskwidth;
     [self invalidate];
 }
@@ -58,7 +58,7 @@
     if ([maskheight isEqualTo:_maskheight]) {
         return;
     }
-    
+
     _maskheight = maskheight;
     [self invalidate];
 }
@@ -68,7 +68,7 @@
     if (maskUnits == _maskUnits) {
         return;
     }
-    
+
     _maskUnits = maskUnits;
     [self invalidate];
 }
@@ -78,7 +78,7 @@
     if (maskContentUnits == _maskContentUnits) {
         return;
     }
-    
+
     _maskContentUnits = maskContentUnits;
     [self invalidate];
 }
@@ -90,4 +90,3 @@
 }
 
 @end
-

@@ -56,7 +56,7 @@
     CGFloat y2 = [self relativeOnHeight:self.y2];
     CGPathMoveToPoint(path, nil, x1, y1);
     CGPathAddLineToPoint(path, nil, x2, y2);
-    
+
     return (CGPathRef)CFAutorelease(path);
 }
 

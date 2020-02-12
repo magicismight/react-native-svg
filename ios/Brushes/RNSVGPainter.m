@@ -247,4 +247,3 @@ void PatternFunction(void* info, CGContextRef context)
 }
 
 @end
-

@@ -17,7 +17,7 @@
     if (minX == _minX) {
         return;
     }
-    
+
     [self invalidate];
     _minX = minX;
 }
@@ -27,7 +27,7 @@
     if (minY == _minY) {
         return;
     }
-    
+
     [self invalidate];
     _minY = minY;
 }
@@ -37,7 +37,7 @@
     if (vbWidth == _vbWidth) {
         return;
     }
-    
+
     [self invalidate];
     _vbWidth = vbWidth;
 }
@@ -47,7 +47,7 @@
     if (_vbHeight == vbHeight) {
         return;
     }
-    
+
     [self invalidate];
     _vbHeight = vbHeight;
 }
@@ -57,7 +57,7 @@
     if ([align isEqualToString:_align]) {
         return;
     }
-    
+
     [self invalidate];
     _align = align;
 }
@@ -67,7 +67,7 @@
     if (meetOrSlice == _meetOrSlice) {
         return;
     }
-    
+
     [self invalidate];
     _meetOrSlice = meetOrSlice;
 }
@@ -82,16 +82,15 @@
 {
     CGRect eRect = CGRectMake(0, 0, width, height);
     if (self.align) {
-        
+
         CGAffineTransform viewBoxTransform = [RNSVGViewBox getTransform:CGRectMake(self.minX, self.minY, self.vbWidth, self.vbHeight)
                                                                   eRect:eRect
                                                                   align:self.align
                                                             meetOrSlice:self.meetOrSlice];
-        
+
         CGContextConcatCTM(context, viewBoxTransform);
     }
     [self renderGroupTo:context rect:eRect];
 }
 
 @end
-

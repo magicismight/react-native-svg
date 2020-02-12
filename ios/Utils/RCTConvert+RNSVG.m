@@ -181,4 +181,3 @@ RCT_ENUM_CONVERTER(RNSVGUnits, (@{
 }
 
 @end
-

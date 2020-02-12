@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger, RNSVGAlignmentBaseline) {
     RNSVGAlignmentBaselineTop,
     /*
      SVG implementations may support the following aliases in order to support legacy content:
-     
+
      text-before-edge = text-top
      text-after-edge = text-bottom
      */

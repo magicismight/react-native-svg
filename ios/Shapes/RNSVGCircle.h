@@ -17,4 +17,3 @@
 @property (nonatomic, strong) RNSVGLength* r;
 
 @end
-

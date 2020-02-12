@@ -240,5 +240,3 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getScreenCTM:(nonnull NSNumber *)reactTag
 }
 
 @end
-
-

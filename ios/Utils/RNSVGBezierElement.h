@@ -22,4 +22,3 @@
 + (NSArray *) elementsFromCGPath:(CGPathRef)path;
 
 @end
-

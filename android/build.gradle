@@ -2,7 +2,7 @@ buildscript {
     ext.safeExtGet = {prop, fallback ->
         rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
     }
-    
+
     // The Android Gradle plugin is only required when opening the android folder stand-alone.
     // This avoids unnecessary downloads and potential conflicts when the library is included as a
     // module dependency in an application project.
@@ -11,7 +11,7 @@ buildscript {
             google()
             jcenter()
         }
-        
+
         dependencies {
             //noinspection GradleDependency
             classpath("com.android.tools.build:gradle:3.5.1")
