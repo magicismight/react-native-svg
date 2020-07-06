@@ -103,5 +103,8 @@
       "@semantic-release/git"
     ]
   },
-  "nativePackage": true
+  "nativePackage": true,
+  "optionalDependencies": {
+    "react-native-web": "^0.13.1"
+  }
 }
