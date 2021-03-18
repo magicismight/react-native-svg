@@ -1169,7 +1169,7 @@ class RenderableViewManager extends ViewGroupManager<VirtualView> {
     }
 
     @ReactProp(name = "strokeDasharray")
-    public void setStrokeDasharray(RenderableView node, @Nullable ReadableArray strokeDasharray) {
+    public void setStrokeDasharray(RenderableView node, @Nullable Dynamic strokeDasharray) {
         node.setStrokeDasharray(strokeDasharray);
     }
 

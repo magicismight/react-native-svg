@@ -1,3 +1,27 @@
+## Fork from [react-native-svg](https://github.com/react-native-svg/react-native-svg)
+
+Fixed strokeDasharray failed to use animation with "useNativeDriver: true" attribute. look like:
+
+```tsx
+<AnimatedCircle
+  cx="15"
+  cy="15"
+  r="13"
+  stroke={color}
+  strokeWidth="2.5"
+  strokeLinecap="round"
+  strokeDasharray={this.animatedValue.interpolate({
+    inputRange: [0, 50, 100],
+    outputRange: [
+      '8.1681408993,73.513268094',
+      '40.8407044967,40.8407045967',
+      '8.1681408993,73.513268094',
+    ],
+  })}
+  fill="none"
+/>
+```
+
 ## react-native-svg
 
 [![Version](https://img.shields.io/npm/v/react-native-svg.svg)](https://www.npmjs.com/package/react-native-svg)

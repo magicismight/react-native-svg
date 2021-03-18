@@ -190,12 +190,15 @@ abstract public class RenderableView extends VirtualView {
     }
 
     @ReactProp(name = "strokeDasharray")
-    public void setStrokeDasharray(@Nullable ReadableArray strokeDasharray) {
-        if (strokeDasharray != null) {
-            int fromSize = strokeDasharray.size();
-            this.strokeDasharray = new SVGLength[fromSize];
-            for (int i = 0; i < fromSize; i++) {
-                this.strokeDasharray[i] = SVGLength.from(strokeDasharray.getDynamic(i));
+    public void setStrokeDasharray(@Nullable Dynamic strokeDasharray) {
+        if (strokeDasharray != null && !strokeDasharray.isNull()) {
+            ArrayList<SVGLength> list = SVGLength.arrayFrom(strokeDasharray);
+            this.strokeDasharray = new SVGLength[Math.max(list.size(), 2)];
+            for (int i = 0; i < list.size(); i++) {
+                this.strokeDasharray[i] = list.get(i);
+            }
+            if (list.size() == 1) {
+                this.strokeDasharray[1] = this.strokeDasharray[0];
             }
         } else {
             this.strokeDasharray = null;
