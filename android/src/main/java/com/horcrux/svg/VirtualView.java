@@ -247,6 +247,24 @@ abstract public class VirtualView extends ReactViewGroup {
         invalidate();
     }
 
+    @ReactProp(name = "accessible")
+    public void setAccessible(boolean accessible) {
+        this.setFocusable(accessible);
+        invalidate();
+    }
+
+    @ReactProp(name = "accessibilityLabel")
+    public void setAccessibilityLabel(String accessibilityLabel) {
+        this.setContentDescription(accessibilityLabel);
+        invalidate();
+    }    
+
+    @ReactProp(name = "testID")
+    public void setTestID(String testID) {
+        this.setTag(testID);
+        invalidate();
+    }       
+
     @ReactProp(name = "display")
     public void setDisplay(String display) {
         mDisplay = display;
