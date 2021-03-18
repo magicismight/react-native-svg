@@ -16,47 +16,47 @@ https://github.com/react-native-svg/react-native-svg/issues/1554
 1. Supports most SVG elements and properties (Rect, Circle, Line, Polyline, Polygon, G ...).
 2. Easy to [convert SVG code](https://svgr.now.sh/) to react-native-svg.
 
-- [Installation](#installation)
-  - [Automatically](#automatically)
-  - [Manually](#manually)
-    - [Android](#android-pre-rn-060)
-    - [iOS](#ios-pre-rn-060)
-- [Troubleshooting](#troubleshooting)
+- [NOTICE:](#notice) - [Manually](#manually) - [Android pre RN 0.60](#android-pre-rn-060) - [iOS pre RN 0.60](#ios-pre-rn-060) - [CocoaPods](#cocoapods)
+  - [Troubleshooting](#troubleshooting)
+    - [Problems with Proguard](#problems-with-proguard)
+    - [Unexpected behavior](#unexpected-behavior)
 - [Opening issues](#opening-issues)
-- [Usage](#usage)
+  - [Usage](#usage)
   - [Use with content loaded from uri](#use-with-content-loaded-from-uri)
+    - [CSS Support](#css-support)
   - [Use with svg files](#use-with-svg-files)
   - [Use with xml strings](#use-with-xml-strings)
-- [Common props](#common-props)
-- [Supported elements](#supported-elements)
-  - [Svg](#svg)
-  - [Rect](#rect)
-  - [Circle](#circle)
-  - [Ellipse](#ellipse)
-  - [Line](#line)
-  - [Polygon](#polygon)
-  - [Polyline](#polyline)
-  - [Path](#path)
-  - [Text](#text)
-  - [TSpan](#tspan)
-  - [TextPath](#textpath)
-  - [G](#g)
-  - [Use](#use)
-  - [Symbol](#symbol)
-  - [Defs](#defs)
-  - [Image](#image)
-  - [ClipPath](#clippath)
-  - [LinearGradient](#lineargradient)
-  - [RadialGradient](#radialgradient)
-  - [Mask](#mask)
-  - [Pattern](#pattern)
-  - [Marker](#marker)
-  - [ForeignObject](#foreignobject)
-- [Touch Events](#touch-events)
-- [Serialize](#serialize)
-- [Run example](#run-example)
-- [TODO](#todo)
-- [Known issues](#known-issues)
+    - [CSS support](#css-support-1)
+  - [Common props:](#common-props)
+  - [Supported elements:](#supported-elements)
+    - [Svg](#svg)
+    - [Rect](#rect)
+    - [Circle](#circle)
+    - [Ellipse](#ellipse)
+    - [Line](#line)
+    - [Polygon](#polygon)
+    - [Polyline](#polyline)
+    - [Path](#path)
+    - [Text](#text)
+    - [TSpan](#tspan)
+    - [TextPath](#textpath)
+    - [G](#g)
+    - [Use](#use)
+    - [Symbol](#symbol)
+    - [Defs](#defs)
+    - [Image](#image)
+    - [ClipPath](#clippath)
+    - [LinearGradient](#lineargradient)
+    - [RadialGradient](#radialgradient)
+    - [Mask](#mask)
+    - [Pattern](#pattern)
+    - [Marker](#marker)
+    - [ForeignObject](#foreignobject)
+    - [Touch Events](#touch-events)
+  - [Serialize](#serialize)
+  - [Run example:](#run-example)
+  - [TODO:](#todo)
+  - [Known issues:](#known-issues)
 
 ### Installation
 
@@ -471,25 +471,26 @@ export default () => <SvgCss xml={xml} width="100%" height="100%" />;
 
 ### Common props:
 
-| Name             | Default  | Description                                                                                                                                                            |
-| ---------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| fill             | '#000'   | The fill prop refers to the color inside the shape.                                                                                                                    |
-| fillOpacity      | 1        | This prop specifies the opacity of the color or the content the current object is filled with.                                                                         |
-| fillRule         | nonzero  | The fillRule prop determines what side of a path is inside a shape, which determines how fill will paint the shape, can be `nonzero` or `evenodd`                      |
-| stroke           | 'none'   | The stroke prop controls how the outline of a shape appears.                                                                                                           |
-| strokeWidth      | 1        | The strokeWidth prop specifies the width of the outline on the current object.                                                                                         |
-| strokeOpacity    | 1        | The strokeOpacity prop specifies the opacity of the outline on the current object.                                                                                     |
-| strokeLinecap    | 'square' | The strokeLinecap prop specifies the shape to be used at the end of open subpaths when they are stroked. Can be either `'butt'`, `'square'` or `'round'`.              |
-| strokeLinejoin   | 'miter'  | The strokeLinejoin prop specifies the shape to be used at the corners of paths or basic shapes when they are stroked. Can be either `'miter'`, `'bevel'` or `'round'`. |
-| strokeDasharray  | []       | The strokeDasharray prop controls the pattern of dashes and gaps used to stroke paths.                                                                                 |
-| strokeDashoffset | null     | The strokeDashoffset prop specifies the distance into the dash pattern to start the dash.                                                                              |
-| x                | 0        | Translate distance on x-axis.                                                                                                                                          |
-| y                | 0        | Translate distance on y-axis.                                                                                                                                          |
-| rotation         | 0        | Rotation degree value on the current object.                                                                                                                           |
-| scale            | 1        | Scale value on the current object.                                                                                                                                     |
-| origin           | 0, 0     | Transform origin coordinates for the current object.                                                                                                                   |
-| originX          | 0        | Transform originX coordinates for the current object.                                                                                                                  |
-| originY          | 0        | Transform originY coordinates for the current object.                                                                                                                  |
+| Name             | Default   | Description                                                                                                                                                            |
+| ---------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| fill             | '#000'    | The fill prop refers to the color inside the shape.                                                                                                                    |
+| fillOpacity      | 1         | This prop specifies the opacity of the color or the content the current object is filled with.                                                                         |
+| fillRule         | nonzero   | The fillRule prop determines what side of a path is inside a shape, which determines how fill will paint the shape, can be `nonzero` or `evenodd`                      |
+| stroke           | 'none'    | The stroke prop controls how the outline of a shape appears.                                                                                                           |
+| strokeWidth      | 1         | The strokeWidth prop specifies the width of the outline on the current object.                                                                                         |
+| strokeOpacity    | 1         | The strokeOpacity prop specifies the opacity of the outline on the current object.                                                                                     |
+| strokeLinecap    | 'square'  | The strokeLinecap prop specifies the shape to be used at the end of open subpaths when they are stroked. Can be either `'butt'`, `'square'` or `'round'`.              |
+| strokeLinejoin   | 'miter'   | The strokeLinejoin prop specifies the shape to be used at the corners of paths or basic shapes when they are stroked. Can be either `'miter'`, `'bevel'` or `'round'`. |
+| strokeDasharray  | []        | The strokeDasharray prop controls the pattern of dashes and gaps used to stroke paths.                                                                                 |
+| strokeDashoffset | null      | The strokeDashoffset prop specifies the distance into the dash pattern to start the dash.                                                                              |
+| x                | 0         | Translate distance on x-axis.                                                                                                                                          |
+| y                | 0         | Translate distance on y-axis.                                                                                                                                          |
+| rotation         | 0         | Rotation degree value on the current object.                                                                                                                           |
+| scale            | 1         | Scale value on the current object.                                                                                                                                     |
+| origin           | 0, 0      | Transform origin coordinates for the current object.                                                                                                                   |
+| originX          | 0         | Transform originX coordinates for the current object.                                                                                                                  |
+| originY          | 0         | Transform originY coordinates for the current object.                                                                                                                  |
+| testID           | undefined | Used to locate element in end-to-end tests.                                                                                                                            |
 
 ### Supported elements:
 

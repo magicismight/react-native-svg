@@ -126,6 +126,7 @@ export interface VectorEffectProps {
 
 export interface DefinitionProps {
   id?: string;
+  testID?: string;
 }
 
 export interface StrokeProps {
@@ -227,7 +228,8 @@ export interface CommonPathProps
     TouchableProps,
     DefinitionProps,
     CommonMarkerProps,
-    CommonMaskProps {}
+    CommonMaskProps,
+    ReactNative.AccessibilityProps {}
 
 // Element props
 export interface CircleProps extends CommonPathProps {

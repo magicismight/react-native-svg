@@ -184,6 +184,18 @@ CGFloat const RNSVG_DEFAULT_FONT_SIZE = 12;
     _name = name;
 }
 
+- (void)setTestID:(NSString *)testID
+{
+    self.accessibilityIdentifier = testID;
+    [self invalidate];
+}
+
+- (void)setAccessible:(BOOL)accessible
+{
+    self.isAccessibilityElement = accessible;
+    [self invalidate];
+}
+
 - (void)setDisplay:(NSString *)display
 {
     if ([display isEqualToString:_display]) {

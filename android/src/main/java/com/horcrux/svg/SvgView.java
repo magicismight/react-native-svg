@@ -20,6 +20,7 @@ import android.graphics.Typeface;
 import android.util.Base64;
 import android.view.View;
 import android.view.ViewParent;
+import android.view.accessibility.AccessibilityNodeInfo;
 
 import androidx.annotation.NonNull;
 
@@ -77,6 +78,16 @@ public class SvgView extends ReactViewGroup implements ReactCompoundView, ReactC
         super.setId(id);
         SvgViewManager.setSvgView(id, this);
     }
+
+    @Override
+    public void onInitializeAccessibilityNodeInfo (AccessibilityNodeInfo info) {
+        super.onInitializeAccessibilityNodeInfo(info);
+
+        Rect r = new Rect();
+        boolean isVisible = this.getGlobalVisibleRect(r);
+        info.setVisibleToUser(isVisible);
+        info.setClassName(this.getClass().getCanonicalName());
+    }    
 
     @Override
     public void invalidate() {
