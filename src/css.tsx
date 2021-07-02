@@ -27,7 +27,8 @@ import csstree, {
   Selector,
   SelectorList,
 } from 'css-tree';
-import cssSelect, { Adapter, Options, Predicate, Query } from 'css-select';
+import cssSelect from 'css-select';
+import { Adapter, Options, Predicate, Query } from 'css-select/lib/types';
 
 /*
  * Style element inlining experiment based on SVGO
@@ -142,8 +143,8 @@ function hasAttrib(elem: XmlAST, name: string): boolean {
 function findOne(
   predicate: Predicate<XmlAST>,
   elems: Array<XmlAST | string>,
-): XmlAST | undefined {
-  let elem: XmlAST | undefined;
+): XmlAST | null {
+  let elem: XmlAST | null = null;
 
   for (let i = 0, l = elems.length; i < l && !elem; i++) {
     const node = elems[i];
@@ -208,11 +209,14 @@ const cssSelectOpts: Options<XmlAST | string, XmlAST> = {
 /**
  * Evaluate a string of CSS selectors against the element and returns matched elements.
  *
- * @param {Query} query can be either a CSS selector string or a compiled query function.
+ * @param {Query<XmlAST>} query can be either a CSS selector string or a compiled query function.
  * @param {Array<XmlAST> | XmlAST} elems Elements to query. If it is an element, its children will be queried.
  * @return {Array<XmlAST>} All matching elements.
  */
-function querySelectorAll(query: Query, elems: XmlAST | XmlAST[]): XmlAST[] {
+function querySelectorAll(
+  query: Query<XmlAST>,
+  elems: XmlAST | XmlAST[],
+): XmlAST[] {
   return cssSelect(query, elems, cssSelectOpts);
 }
 
