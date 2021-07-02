@@ -4,7 +4,7 @@ import { NativeModules, Platform } from 'react-native';
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
 import { fetchText } from './xml';
-import { SvgCss, SvgWithCss } from './css';
+import { SvgCss, SvgWithCss } from '../css';
 
 const { getRawResource } = NativeModules.RNSVGRenderableManager || {};
 

@@ -25,14 +25,6 @@ import Marker from './elements/Marker';
 import ForeignObject from './elements/ForeignObject';
 import { parse, SvgAst, SvgFromUri, SvgFromXml, SvgUri, SvgXml } from './xml';
 import {
-  SvgCss,
-  SvgCssUri,
-  SvgWithCss,
-  SvgWithCssUri,
-  inlineStyles,
-} from './css';
-import { LocalSvg, WithLocalSvg, loadLocalRawResource } from './LocalSvg';
-import {
   RNSVGCircle,
   RNSVGClipPath,
   RNSVGDefs,
@@ -87,14 +79,6 @@ export {
   SvgFromXml,
   SvgUri,
   SvgXml,
-  SvgCss,
-  SvgCssUri,
-  SvgWithCss,
-  SvgWithCssUri,
-  inlineStyles,
-  LocalSvg,
-  WithLocalSvg,
-  loadLocalRawResource,
   Shape,
   RNSVGMarker,
   RNSVGMask,

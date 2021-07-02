@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { SvgCss, parse, inlineStyles } from '../src/ReactNativeSVG';
+import { parse } from '../src/ReactNativeSVG';
+import { SvgCss, inlineStyles } from '../css';
 
 const xml = `<?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"

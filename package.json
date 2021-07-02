@@ -10,7 +10,10 @@
   "license": "MIT",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
-  "react-native": "src/index.ts",
+  "react-native": [
+    "src/index.ts",
+    "css/index.ts"
+  ],
   "types": "src/index.d.ts",
   "files": [
     "__tests__",
@@ -19,6 +22,7 @@
     "elements",
     "lib",
     "src",
+    "css",
     "RNSVG.podspec"
   ],
   "@react-native-community/bob": {
