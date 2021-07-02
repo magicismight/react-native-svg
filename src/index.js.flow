@@ -6,7 +6,7 @@
 
 import * as React from "react";
 import * as ReactNative from "react-native";
-import { GestureResponderEvent } from "react-native";
+import { GestureResponderEvent, LayoutChangeEvent } from "react-native";
 export type NumberProp = string | number;
 export type NumberArray = NumberProp[] | NumberProp;
 export type FillRule = "evenodd" | "nonzero";
@@ -183,6 +183,9 @@ export interface CommonMarkerProps {
   markerMid?: string;
   markerEnd?: string;
 }
+export interface LayoutProps {
+  onLayout?: (event: LayoutChangeEvent) => void;
+}
 export type CommonPathProps = { ... } & FillProps &
   StrokeProps &
   ClipProps &
@@ -192,7 +195,8 @@ export type CommonPathProps = { ... } & FillProps &
   TouchableProps &
   DefinitionProps &
   CommonMarkerProps &
-  CommonMaskProps;
+  CommonMaskProps &
+  LayoutProps;
 export type CircleProps = {
   cx?: NumberProp,
   cy?: NumberProp,

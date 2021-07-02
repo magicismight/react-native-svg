@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactNative from 'react-native';
-import { GestureResponderEvent } from 'react-native';
+import { GestureResponderEvent, LayoutChangeEvent } from 'react-native';
 
 // Common props
 export type NumberProp = string | number;
@@ -217,6 +217,10 @@ export interface CommonMarkerProps {
   markerEnd?: string;
 }
 
+export interface LayoutProps {
+  onLayout?: (event: LayoutChangeEvent) => void;
+}
+
 export interface CommonPathProps
   extends FillProps,
     StrokeProps,
@@ -227,7 +231,8 @@ export interface CommonPathProps
     TouchableProps,
     DefinitionProps,
     CommonMarkerProps,
-    CommonMaskProps {}
+    CommonMaskProps,
+    LayoutProps {}
 
 // Element props
 export interface CircleProps extends CommonPathProps {
