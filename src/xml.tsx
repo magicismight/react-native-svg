@@ -4,6 +4,8 @@ import React, {
   useEffect,
   useMemo,
   useState,
+  forwardRef,
+  Ref,
 } from 'react';
 import Rect from './elements/Rect';
 import Circle from './elements/Circle';
@@ -94,33 +96,45 @@ export type XmlState = { ast: JsxAST | null };
 
 export type AstProps = { ast: JsxAST | null } & AdditionalProps;
 
-export function SvgAst({ ast, override }: AstProps) {
+function SvgAstInternal({
+  ast,
+  override,
+  forwardedRef,
+}: AstProps & { forwardedRef?: Ref<Svg> }) {
   if (!ast) {
     return null;
   }
   const { props, children } = ast;
   return (
-    <Svg {...props} {...override}>
+    <Svg {...props} {...override} ref={forwardedRef}>
       {children}
     </Svg>
   );
 }
 
+export const SvgAst = forwardRef<Svg, AstProps>((props, ref) => (
+  <SvgAstInternal {...props} forwardedRef={ref} />
+));
+
 export const err = console.error.bind(console);
 
-export function SvgXml(props: XmlProps) {
-  const { onError = err, xml, override } = props;
+function SvgXmlInternal(props: XmlProps & { forwardedRef?: Ref<Svg> }) {
+  const { onError = err, xml, override, forwardedRef } = props;
   const ast = useMemo<JsxAST | null>(() => (xml !== null ? parse(xml) : null), [
     xml,
   ]);
 
   try {
-    return <SvgAst ast={ast} override={override || props} />;
+    return <SvgAst ast={ast} override={override || props} ref={forwardedRef} />;
   } catch (error) {
     onError(error);
     return null;
   }
 }
+
+export const SvgXml = forwardRef<Svg, XmlProps>((props, ref) => (
+  <SvgXmlInternal {...props} forwardedRef={ref} />
+));
 
 export async function fetchText(uri: string) {
   const response = await fetch(uri);

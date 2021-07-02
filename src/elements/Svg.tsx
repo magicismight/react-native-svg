@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import {
   findNodeHandle,
   MeasureInWindowOnSuccessCallback,
@@ -56,6 +56,10 @@ export default class Svg extends Shape<
     preserveAspectRatio: 'xMidYMid meet',
   };
 
+  gRef = createRef<
+    G<TransformProps & ResponderProps & StrokeProps & FillProps & ClipProps>
+  >();
+
   measureInWindow = (callback: MeasureInWindowOnSuccessCallback) => {
     const { root } = this;
     root && root.measureInWindow(callback);
@@ -81,17 +85,51 @@ export default class Svg extends Shape<
       height?: NumberProp;
       bbWidth?: NumberProp;
       bbHeight?: NumberProp;
-    },
+    } & FillProps &
+      StrokeProps &
+      TransformProps,
   ) => {
-    const { width, height } = props;
-    if (width) {
-      props.bbWidth = width;
+    const {
+      fill,
+      fillOpacity,
+      fillRule,
+      stroke,
+      strokeWidth,
+      strokeOpacity,
+      strokeDasharray,
+      strokeDashoffset,
+      strokeLinecap,
+      strokeLinejoin,
+      strokeMiterlimit,
+      transform,
+      ...svgProps
+    } = props;
+
+    const gProps = {
+      fill,
+      fillOpacity,
+      fillRule,
+      stroke,
+      strokeWidth,
+      strokeOpacity,
+      strokeDasharray,
+      strokeDashoffset,
+      strokeLinecap,
+      strokeLinejoin,
+      strokeMiterlimit,
+      transform,
+    };
+
+    if (svgProps.width) {
+      svgProps.bbWidth = svgProps.width;
     }
-    if (height) {
-      props.bbHeight = height;
+    if (svgProps.height) {
+      svgProps.bbHeight = svgProps.height;
     }
-    const { root } = this;
-    root && root.setNativeProps(props);
+
+    const { root, gRef } = this;
+    root && root.setNativeProps(svgProps);
+    gRef && gRef.current && gRef.current.setNativeProps(gProps);
   };
 
   toDataURL = (callback: () => void, options?: Object) => {
@@ -216,6 +254,7 @@ export default class Svg extends Shape<
             strokeLinecap,
             strokeLinejoin,
             strokeMiterlimit,
+            ref: this.gRef,
           }}
         />
       </RNSVGSvg>
