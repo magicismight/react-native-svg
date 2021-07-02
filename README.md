@@ -923,7 +923,7 @@ The <ClipPath> SVG element defines a clipping path. A clipping path is used/refe
           x="50"
           y="30"
           fontSize="32"
-          fonWeight="bold"
+          fontWeight="bold"
           textAnchor="middle"
           scale="1.2"
         >
