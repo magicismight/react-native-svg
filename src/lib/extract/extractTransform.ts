@@ -31,7 +31,7 @@ function universal2axis(
   universal: NumberProp | NumberProp[] | undefined,
   axisX: NumberProp | void,
   axisY: NumberProp | void,
-  defaultValue?: number,
+  defaultValue: number,
 ): [number, number] {
   let x;
   let y;
@@ -64,7 +64,7 @@ function universal2axis(
     y = axisY;
   }
 
-  return [x || defaultValue || 0, y || defaultValue || 0];
+  return [x ?? defaultValue, y ?? defaultValue];
 }
 
 export function props2transform(
@@ -116,10 +116,11 @@ export function props2transform(
     translate,
     translateX || (Array.isArray(x) ? x[0] : x),
     translateY || (Array.isArray(y) ? y[0] : y),
+    0
   );
-  const or = universal2axis(origin, originX, originY);
+  const or = universal2axis(origin, originX, originY, 0);
   const sc = universal2axis(scale, scaleX, scaleY, 1);
-  const sk = universal2axis(skew, skewX, skewY);
+  const sk = universal2axis(skew, skewX, skewY, 0);
 
   return {
     rotation: rotation == null ? 0 : +rotation || 0,
