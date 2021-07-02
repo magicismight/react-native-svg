@@ -537,6 +537,8 @@ export interface JsxAST extends AST {
 export interface UriProps extends SvgProps {
   uri: string | null;
   override?: SvgProps;
+  onError?: (error: Error) => void;
+  onLoad?: () => void;
 }
 export type UriState = { xml: string | null };
 
@@ -570,3 +572,11 @@ export const SvgCssUri: React.FunctionComponent<UriProps>;
 export const SvgWithCssUri: React.ComponentClass<UriProps, UriState>;
 
 export const inlineStyles: Middleware;
+
+export type LocalProps = { asset?: string | number; override?: Object };
+export type LocalState = { xml: string | null };
+export function LocalSvg(props: LocalProps): JSX.Element;
+export const WithLocalSvg: React.ComponentClass<LocalProps, LocalState>;
+export const loadLocalRawResource: (
+  source?: string | number | undefined,
+) => Promise<string>;
