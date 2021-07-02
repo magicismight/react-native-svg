@@ -20,6 +20,8 @@ import com.facebook.react.bridge.Dynamic;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 
+import java.util.ArrayList;
+
 @SuppressLint("ViewConstructor")
 class RectView extends RenderableView {
     private SVGLength mX;
@@ -107,6 +109,15 @@ class RectView extends RenderableView {
             path.addRect((float) x, (float) y, (float) (x + w), (float) (y + h), Path.Direction.CW);
             path.close(); // Ensure isSimplePath = false such that rect doesn't become represented using integers
         }
-        return path;
+
+
+      elements = new ArrayList<>();
+      elements.add(new PathElement(ElementType.kCGPathElementMoveToPoint, new Point[]{new Point(mX.value,mY.value)}));
+      elements.add(new PathElement(ElementType.kCGPathElementAddLineToPoint, new Point[]{new Point(mX.value + mW.value,mY.value)}));
+      elements.add(new PathElement(ElementType.kCGPathElementAddLineToPoint, new Point[]{new Point(mX.value + mW.value,mY.value + mH.value)}));
+      elements.add(new PathElement(ElementType.kCGPathElementAddLineToPoint, new Point[]{new Point(mX.value,mY.value + mH.value)}));
+      elements.add(new PathElement(ElementType.kCGPathElementAddLineToPoint, new Point[]{new Point(mX.value,mY.value)}));
+
+      return path;
     }
 }

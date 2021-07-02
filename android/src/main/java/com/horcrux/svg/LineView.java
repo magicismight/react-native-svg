@@ -18,6 +18,8 @@ import com.facebook.react.bridge.Dynamic;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 
+import java.util.ArrayList;
+
 @SuppressLint("ViewConstructor")
 class LineView extends RenderableView {
     private SVGLength mX1;
@@ -63,6 +65,11 @@ class LineView extends RenderableView {
 
         path.moveTo((float) x1, (float) y1);
         path.lineTo((float) x2, (float) y2);
+
+        elements = new ArrayList<>();
+        elements.add(new PathElement(ElementType.kCGPathElementMoveToPoint, new Point[]{new Point(mX1.value,mY1.value)}));
+        elements.add(new PathElement(ElementType.kCGPathElementAddLineToPoint, new Point[]{new Point(mX2.value,mY2.value)}));
+
         return path;
     }
 }
