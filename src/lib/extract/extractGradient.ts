@@ -79,7 +79,7 @@ export default function extractGradient(
       continue;
     }
     const alpha = Math.round(extractOpacity(stopOpacity) * 255);
-    stops.push([offsetNumber, (color & 0x00ffffff) | (alpha << 24)]);
+    stops.push([offsetNumber, ((color & 0x00ffffff) | (alpha << 24)) >>> 0]);
   }
   stops.sort(offsetComparator);
 
