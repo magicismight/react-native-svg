@@ -525,6 +525,11 @@ export interface AST {
   Tag: React.ComponentType;
 }
 
+export type AdditionalProps = {
+  onError?: (error: Error) => void;
+  override?: AdditionalProps;
+} & SvgProps;
+
 export interface XmlAST extends AST {
   children: (XmlAST | string)[];
   parent: XmlAST | null;
@@ -534,21 +539,18 @@ export interface JsxAST extends AST {
   children: (JSX.Element | string)[];
 }
 
-export interface UriProps extends SvgProps {
+export interface UriProps extends AdditionalProps {
   uri: string | null;
-  override?: SvgProps;
 }
 export type UriState = { xml: string | null };
 
-export interface XmlProps extends SvgProps {
+export interface XmlProps extends AdditionalProps {
   xml: string | null;
-  override?: SvgProps;
 }
 export type XmlState = { ast: JsxAST | null };
 
-export interface AstProps extends SvgProps {
+export interface AstProps extends AdditionalProps {
   ast: JsxAST | null;
-  override?: SvgProps;
 }
 
 export type Middleware = (ast: XmlAST) => XmlAST;
