@@ -88,8 +88,12 @@ public class SvgView extends ReactViewGroup implements ReactCompoundView, ReactC
             }
             mRendered = false;
             ((VirtualView) parent).getSvgView().invalidate();
-            return;
         }
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
         if (mBitmap != null) {
             mBitmap.recycle();
         }
