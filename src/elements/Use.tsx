@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { withoutXY } from '../lib/extract/extractProps';
 import { NumberProp } from '../lib/extract/types';
 import { idPattern } from '../lib/util';

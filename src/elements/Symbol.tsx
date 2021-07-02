@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import extractViewBox from '../lib/extract/extractViewBox';
 import Shape from './Shape';
 import { RNSVGSymbol } from './NativeComponents';

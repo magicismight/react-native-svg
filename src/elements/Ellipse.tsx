@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { extract } from '../lib/extract/extractProps';
 import { NumberProp } from '../lib/extract/types';
 import Shape from './Shape';

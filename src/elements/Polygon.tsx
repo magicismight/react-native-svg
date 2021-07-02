@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Path from './Path';
 import Shape from './Shape';
 import { NumberProp } from '../lib/extract/types';

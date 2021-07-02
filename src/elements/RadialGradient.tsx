@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import * as React from 'react';
 import extractGradient from '../lib/extract/extractGradient';
 import { NumberProp, TransformProps } from '../lib/extract/types';
 import Shape from './Shape';
@@ -13,7 +13,7 @@ export default class RadialGradient extends Shape<{
   cx?: NumberProp;
   cy?: NumberProp;
   id?: string;
-  children?: ReactElement[];
+  children?: React.ReactElement[];
   transform?: number[] | string | TransformProps;
   gradientTransform?: number[] | string | TransformProps;
   gradientUnits?: 'objectBoundingBox' | 'userSpaceOnUse';

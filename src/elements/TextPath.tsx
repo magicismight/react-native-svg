@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import extractTransform from '../lib/extract/extractTransform';
 import { withoutXY } from '../lib/extract/extractProps';
 import { NumberProp, TransformProps } from '../lib/extract/types';
@@ -70,7 +70,7 @@ export default class TextPath extends Shape<{
           midLine,
         },
       );
-      props.ref = this.refMethod as (instance: Component | null) => void;
+      props.ref = this.refMethod as (instance: React.Component | null) => void;
       return <RNSVGTextPath {...props} />;
     }
 
@@ -80,7 +80,7 @@ export default class TextPath extends Shape<{
         '"',
     );
     return (
-      <TSpan ref={this.refMethod as (instance: Component | null) => void}>
+      <TSpan ref={this.refMethod as (instance: React.Component | null) => void}>
         {children}
       </TSpan>
     );

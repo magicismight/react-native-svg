@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import extractText from '../lib/extract/extractText';
 import extractProps, { propsAndStyles } from '../lib/extract/extractProps';
 import extractTransform from '../lib/extract/extractTransform';
@@ -37,7 +37,7 @@ export default class Text extends Shape<{}> {
       this,
     );
     Object.assign(props, extractText(prop, true));
-    props.ref = this.refMethod as (instance: Component | null) => void;
+    props.ref = this.refMethod as (instance: React.Component | null) => void;
     return <RNSVGText {...props} />;
   }
 }

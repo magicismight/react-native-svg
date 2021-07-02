@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 import { Image, ImageSourcePropType } from 'react-native';
-import { alignEnum, meetOrSliceTypes } from '../lib/extract/extractViewBox';
+import { meetOrSliceTypes, alignEnum } from '../lib/extract/extractViewBox';
 import { withoutXY } from '../lib/extract/extractProps';
 import { NumberProp } from '../lib/extract/types';
 import Shape from './Shape';

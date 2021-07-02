@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useMemo, useState } from 'react';
+import * as React from 'react';
 import {
   camelCase,
   err,
@@ -694,7 +694,7 @@ export const inlineStyles: Middleware = function inlineStyles(
 
 export function SvgCss(props: XmlProps) {
   const { xml, override } = props;
-  const ast = useMemo<JsxAST | null>(
+  const ast = React.useMemo<JsxAST | null>(
     () => (xml !== null ? parse(xml, inlineStyles) : null),
     [xml],
   );
@@ -703,8 +703,8 @@ export function SvgCss(props: XmlProps) {
 
 export function SvgCssUri(props: UriProps) {
   const { uri } = props;
-  const [xml, setXml] = useState<string | null>(null);
-  useEffect(() => {
+  const [xml, setXml] = React.useState<string | null>(null);
+  React.useEffect(() => {
     uri
       ? fetchText(uri)
           .then(setXml)
@@ -716,7 +716,7 @@ export function SvgCssUri(props: UriProps) {
 
 // Extending Component is required for Animated support.
 
-export class SvgWithCss extends Component<XmlProps, XmlState> {
+export class SvgWithCss extends React.Component<XmlProps, XmlState> {
   state = { ast: null };
   componentDidMount() {
     this.parse(this.props.xml);
@@ -743,7 +743,7 @@ export class SvgWithCss extends Component<XmlProps, XmlState> {
   }
 }
 
-export class SvgWithCssUri extends Component<UriProps, UriState> {
+export class SvgWithCssUri extends React.Component<UriProps, UriState> {
   state = { xml: null };
   componentDidMount() {
     this.fetch(this.props.uri);

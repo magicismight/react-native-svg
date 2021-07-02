@@ -1,10 +1,10 @@
-import { Component } from 'react';
+import * as React from 'react';
 
 type StopProps = {
-  parent?: Component;
+  parent?: React.Component;
 };
 
-export default class Stop extends Component<StopProps, {}> {
+export default class Stop extends React.Component<StopProps, {}> {
   props!: StopProps;
   static displayName = 'Stop';
 

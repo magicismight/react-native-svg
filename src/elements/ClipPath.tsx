@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { extract } from '../lib/extract/extractProps';
 import Shape from './Shape';
 import { RNSVGClipPath } from './NativeComponents';

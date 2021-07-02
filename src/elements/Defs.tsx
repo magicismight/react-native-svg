@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { RNSVGDefs } from './NativeComponents';
 
-export default class Defs extends Component {
+export default class Defs extends React.Component {
   static displayName = 'Defs';
 
   render() {

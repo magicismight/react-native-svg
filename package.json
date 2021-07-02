@@ -90,6 +90,9 @@
     "semantic-release-cli": "^5.2.3",
     "typescript": "^3.8.3"
   },
+  "resolutions": {
+    "@types/react": "^16.9.23"
+  },
   "jest": {
     "preset": "react-native"
   },

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import {
   findNodeHandle,
   MeasureInWindowOnSuccessCallback,
@@ -98,7 +98,7 @@ export default class Svg extends Shape<
     if (!callback) {
       return;
     }
-    const handle = findNodeHandle(this.root as Component);
+    const handle = findNodeHandle(this.root as React.Component);
     RNSVGSvgViewManager.toDataURL(handle, options, callback);
   };
 

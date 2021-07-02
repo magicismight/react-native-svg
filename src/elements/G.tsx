@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import extractProps, { propsAndStyles } from '../lib/extract/extractProps';
 import { extractFont } from '../lib/extract/extractText';
 import extractTransform from '../lib/extract/extractTransform';

@@ -1,4 +1,4 @@
-import React, { Children, ReactElement } from 'react';
+import * as React from 'react';
 
 import extractColor from './extractColor';
 import extractOpacity from './extractOpacity';
@@ -40,7 +40,7 @@ const offsetComparator = (object: number[], other: number[]) =>
 export default function extractGradient(
   props: {
     id?: string;
-    children?: ReactElement[];
+    children?: React.ReactElement[];
     transform?: number[] | string | TransformProps;
     gradientTransform?: number[] | string | TransformProps;
     gradientUnits?: 'objectBoundingBox' | 'userSpaceOnUse';
@@ -54,7 +54,7 @@ export default function extractGradient(
 
   const stops = [];
   const childArray = children
-    ? Children.map(children, child =>
+    ? React.Children.map(children, child =>
         React.cloneElement(child, {
           parent,
         }),
