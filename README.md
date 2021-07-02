@@ -191,7 +191,7 @@ and run `pod install` from `ios` folder
 
 #### Problems with Proguard
 
-When Proguard is enabled (which it is by default for Android release builds), it causes runtine error
+When Proguard is enabled (which it is by default for Android release builds), it causes runtime error
 To avoid this, add an exception to `android/app/proguard-rules.pro`:
 
 ```bash
