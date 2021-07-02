@@ -1,5 +1,7 @@
 // @ts-ignore
 import { Touchable, GestureResponderEvent } from 'react-native';
+import { getHasTouchableProperty } from './util';
+
 const PRESS_RETENTION_OFFSET = { top: 20, left: 20, right: 20, bottom: 30 };
 // @ts-ignore
 const { Mixin } = Touchable;
@@ -121,6 +123,11 @@ const touchVals = touchKeys.map(key => SvgTouchableMixin[key]);
 const numTouchKeys = touchKeys.length;
 
 export default (target: { [x: string]: unknown; state: unknown }) => {
+  const hasTouchableProperty = getHasTouchableProperty(target.props);
+
+  // Do not attach touchable mixin handlers if SVG element doesn't have a touchable prop
+  if (!hasTouchableProperty) return;
+
   for (let i = 0; i < numTouchKeys; i++) {
     const key = touchKeys[i];
     const val = touchVals[i];

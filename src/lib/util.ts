@@ -11,4 +11,10 @@ export function pickNotNil(object: { [prop: string]: unknown }) {
   return result;
 }
 
+export const getHasTouchableProperty = (props: any) => {
+  return (
+    props.onPress || props.onPressIn || props.onPressOut || props.onLongPress
+  );
+};
+
 export const idPattern = /#([^)]+)\)?$/;
