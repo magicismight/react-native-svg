@@ -124,7 +124,7 @@ export function SvgXml(props: XmlProps) {
 
 export async function fetchText(uri: string) {
   const response = await fetch(uri);
-  return await response.text();
+  return response.ok ? await response.text() : null;
 }
 
 export function SvgUri(props: UriProps) {
