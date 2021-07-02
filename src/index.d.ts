@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactNative from 'react-native';
-import { GestureResponderEvent } from 'react-native';
+import { GestureResponderEvent, OpaqueColorValue } from 'react-native';
 
 // Common props
 export type NumberProp = string | number;
@@ -101,7 +101,7 @@ export type rgbaArray = ReadonlyArray<number>;
 // int32ARGBColor = 0xaarrggbb
 export type int32ARGBColor = number;
 
-export type Color = int32ARGBColor | rgbaArray | string;
+export type Color = int32ARGBColor | rgbaArray | OpaqueColorValue | string;
 
 export interface FillProps {
   fill?: Color;

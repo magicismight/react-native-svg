@@ -40,6 +40,16 @@ export default function extractBrush(color?: Color) {
     return int32ARGBColor;
   }
 
+  // iOS PlatformColor
+  if ('semantic' in color) {
+    return [0, color];
+  }
+
+  // Android PlatformColor
+  if ('resource_paths' in color) {
+    return [0, color];
+  }
+
   console.warn(`"${color}" is not a valid color or brush`);
   return null;
 }

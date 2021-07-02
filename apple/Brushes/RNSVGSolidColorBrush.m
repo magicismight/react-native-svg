@@ -13,13 +13,13 @@
 
 @implementation RNSVGSolidColorBrush
 {
-    CGColorRef _color;
+    UIColor *_color;
 }
 
 - (instancetype)initWithArray:(NSArray<RNSVGLength *> *)array
 {
     if ((self = [super initWithArray:array])) {
-        _color = CGColorRetain([RCTConvert RNSVGCGColor:array offset:1]);
+        _color = [RCTConvert RNSVGUIColor:array offset:1];
     }
     return self;
 }
@@ -27,34 +27,35 @@
 - (instancetype)initWithNumber:(NSNumber *)number
 {
     if ((self = [super init])) {
-        _color = CGColorRetain([RCTConvert CGColor:number]);
+        _color = [RCTConvert UIColor:number];
     }
     return self;
 }
 
 - (void)dealloc
 {
-    CGColorRelease(_color);
+    _color = nil;
 }
 
 - (CGColorRef)getColorWithOpacity:(CGFloat)opacity
 {
-    return CGColorCreateCopyWithAlpha(_color, opacity * CGColorGetAlpha(_color));
+    CGColorRef baseColor = _color.CGColor;
+    CGColorRef color = CGColorCreateCopyWithAlpha(baseColor, opacity * CGColorGetAlpha(baseColor));
+    CGColorRelease(baseColor);
+    return color;
 }
 
 - (BOOL)applyFillColor:(CGContextRef)context opacity:(CGFloat)opacity
 {
-    CGColorRef color = CGColorCreateCopyWithAlpha(_color, opacity * CGColorGetAlpha(_color));
+    CGColorRef color = [self getColorWithOpacity:opacity];
     CGContextSetFillColorWithColor(context, color);
-    CGColorRelease(color);
     return YES;
 }
 
 - (BOOL)applyStrokeColor:(CGContextRef)context opacity:(CGFloat)opacity
 {
-    CGColorRef color = CGColorCreateCopyWithAlpha(_color, opacity * CGColorGetAlpha(_color));
+    CGColorRef color = [self getColorWithOpacity:opacity];
     CGContextSetStrokeColorWithColor(context, color);
-    CGColorRelease(color);
     return YES;
 }
 
