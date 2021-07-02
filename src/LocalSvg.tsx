@@ -1,19 +1,18 @@
 import React, { useState, useEffect, Component } from 'react';
-import { NativeModules, Platform } from 'react-native';
-// @ts-ignore
-import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
+import { Image, NativeModules, Platform } from 'react-native';
 
 import { fetchText } from './xml';
 import { SvgCss, SvgWithCss } from './css';
 
 const { getRawResource } = NativeModules.RNSVGRenderableManager || {};
 
-export function getUriFromSource(source?: string | number) {
-  const resolvedAssetSource = resolveAssetSource(source);
+export function getUriFromSource(source: string | number) {
+  // @ts-ignore
+  const resolvedAssetSource = Image.resolveAssetSource(source);
   return resolvedAssetSource.uri;
 }
 
-export function loadLocalRawResourceDefault(source?: string | number) {
+export function loadLocalRawResourceDefault(source: string | number) {
   const uri = getUriFromSource(source);
   return fetchText(uri);
 }
@@ -34,7 +33,7 @@ export async function loadAndroidRawResource(uri?: string | number) {
   }
 }
 
-export function loadLocalRawResourceAndroid(source?: string | number) {
+export function loadLocalRawResourceAndroid(source: string | number) {
   const uri = getUriFromSource(source);
   if (isUriAnAndroidResourceIdentifier(uri)) {
     return loadAndroidRawResource(uri);
@@ -48,7 +47,7 @@ export const loadLocalRawResource =
     ? loadLocalRawResourceDefault
     : loadLocalRawResourceAndroid;
 
-export type LocalProps = { asset?: string | number; override?: Object };
+export type LocalProps = { asset: string | number; override?: Object };
 export type LocalState = { xml: string | null };
 
 export function LocalSvg(props: LocalProps) {
