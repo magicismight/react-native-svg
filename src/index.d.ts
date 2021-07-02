@@ -551,9 +551,17 @@ export interface AstProps extends SvgProps {
   override?: SvgProps;
 }
 
+export interface LocalProps {
+  asset?: string | number;
+  override?: Object;
+}
+
 export type Middleware = (ast: XmlAST) => XmlAST;
 
 export function parse(source: string, middleware?: Middleware): JsxAST | null;
+
+export const LocalSvg: React.FunctionComponent<LocalProps>;
+export const WithLocalSvg: React.FunctionComponent<LocalProps>;
 
 export const SvgAst: React.FunctionComponent<AstProps>;
 
