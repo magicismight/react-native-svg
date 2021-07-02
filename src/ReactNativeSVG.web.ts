@@ -348,7 +348,43 @@ export class Stop extends WebShape {
 
 export class Svg extends WebShape {
   render(): JSX.Element {
-    return createElement('svg', prepare(this));
+    return createElement('svg', {
+      ...prepare(this),
+      ref: (ref: SVGElement) => {
+        this.toDataURL = (
+          callback: (data: string) => void,
+          options: { width?: number; height?: number } = {},
+        ) => {
+          const rect: DOMRect = ref.getBoundingClientRect();
+
+          const width = Number(options.width) || rect.width;
+          const height = Number(options.height) || rect.height;
+
+          const svg = document.createElementNS(
+            'http://www.w3.org/2000/svg',
+            'svg',
+          );
+          svg.setAttribute('viewBox', `0 0 ${rect.width} ${rect.height}`);
+          svg.setAttribute('width', String(width));
+          svg.setAttribute('height', String(height));
+          svg.appendChild(ref.cloneNode(true));
+
+          const img = new window.Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const context = canvas.getContext('2d');
+            context.drawImage(img, 0, 0);
+            callback(canvas.toDataURL().replace('data:image/png;base64,', ''));
+          };
+
+          img.src = `data:image/svg+xml;utf8,${new window.XMLSerializer().serializeToString(
+            svg,
+          )}`;
+        };
+      },
+    });
   }
 }
 
