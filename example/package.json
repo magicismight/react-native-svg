@@ -1,0 +1,32 @@
+{
+  "name": "react-native-svg-example",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "run-android": "react-native run-android",
+    "run-ios": "react-native run-ios",
+    "clean-modules": "rm -rf ./node_modules/react-native-svg/{example,node_modules}",
+    "clean": "rm -rf ./node_modules ./ios/Pods",
+    "postinstall": "yarn clean-modules && yarn pod-update",
+    "pod-update": "cd ./ios && pod update && cd ..",
+    "start-metro": "react-native start",
+    "start-webpack": "webpack serve",
+    "reinstall": "yarn clean && yarn install"
+  },
+  "dependencies": {
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-native": "0.63.3",
+    "react-native-svg": "file:../",
+    "react-native-web": "0.14.9"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/runtime": "^7.12.5",
+    "babel-loader": "^8.2.2",
+    "metro-react-native-babel-preset": "^0.59.0",
+    "webpack": "^5.10.0",
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-server": "^3.11.0"
+  }
+}

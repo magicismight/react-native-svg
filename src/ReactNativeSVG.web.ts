@@ -1,126 +1,99 @@
-// @ts-ignore
 import * as React from 'react';
 import {
-  GestureResponderEvent,
+  createElement,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  TouchableWithoutFeedbackProps,
   // @ts-ignore
-  unstable_createElement as ucE,
-  // @ts-ignore
-  createElement as cE,
+  unstable_createElement,
 } from 'react-native';
 import { NumberArray, NumberProp } from './lib/extract/types';
-import SvgTouchableMixin from './lib/SvgTouchableMixin';
 import { resolve } from './lib/resolve';
 
-const createElement = cE || ucE;
-
-type BlurEvent = Object;
-type FocusEvent = Object;
-type PressEvent = Object;
-type LayoutEvent = Object;
-type EdgeInsetsProp = Object;
-
-interface BaseProps {
-  accessible?: boolean;
-  accessibilityLabel?: string;
-  accessibilityHint?: string;
-  accessibilityIgnoresInvertColors?: boolean;
-  accessibilityRole?: string;
-  accessibilityState?: Object;
-  delayLongPress?: number;
-  delayPressIn?: number;
-  delayPressOut?: number;
-  disabled?: boolean;
-  hitSlop?: EdgeInsetsProp;
+interface BaseProps extends Omit<TouchableWithoutFeedbackProps, 'style'> {
+  // web only TouchableWithoutFeedback props
+  focusable?: boolean;
   nativeID?: string;
-  touchSoundDisabled?: boolean;
-  onBlur?: (e: BlurEvent) => void;
-  onFocus?: (e: FocusEvent) => void;
-  onLayout?: (event: LayoutEvent) => object;
-  onLongPress?: (event: PressEvent) => object;
-  onClick?: (event: PressEvent) => object;
-  onPress?: (event: PressEvent) => object;
-  onPressIn?: (event: PressEvent) => object;
-  onPressOut?: (event: PressEvent) => object;
-  pressRetentionOffset?: EdgeInsetsProp;
   rejectResponderTermination?: boolean;
 
-  translate: NumberArray;
-  scale: NumberArray;
-  rotation: NumberArray;
-  skewX: NumberProp;
-  skewY: NumberProp;
-  originX: NumberProp;
-  originY: NumberProp;
-
+  children?: React.ReactNode;
+  fontFamily?: string;
+  fontSize?: NumberProp;
   fontStyle?: string;
   fontWeight?: NumberProp;
-  fontSize?: NumberProp;
-  fontFamily?: string;
-  forwardedRef: {};
-  style: Iterable<{}>;
+  forwardedRef?: {};
+  originX?: NumberProp;
+  originY?: NumberProp;
+  rotation?: NumberArray;
+  scale?: NumberArray;
+  skewX?: NumberProp;
+  skewY?: NumberProp;
+  style?: Iterable<{}>;
+  translate?: NumberArray;
 }
 
-/**
- * `react-native-svg` supports additional props that aren't defined in the spec.
- * This function replaces them in a spec conforming manner.
- *
- * @param {WebShape} self Instance given to us.
- * @param {Object?} props Optional overridden props given to us.
- * @returns {Object} Cleaned props object.
- * @private
- */
-const prepare = <T extends BaseProps>(
-  self: WebShape<T>,
-  props = self.props,
-) => {
+const createComponent = <P extends BaseProps = BaseProps>(
+  type: keyof React.ReactSVG,
+) => (props: P): React.ReactElement<P> =>
+  (unstable_createElement || createElement)(type, props);
+
+const styles = StyleSheet.create({
+  base: {
+    display: 'flex',
+    flexBasis: 'auto',
+    flexGrow: 0,
+    flexShrink: 0,
+  },
+});
+
+const prepare = <P extends BaseProps = BaseProps>(
+  Component: (props: P) => React.ReactElement<P>,
+): React.FC<P> => props => {
   const {
-    translate,
-    scale,
-    rotation,
-    skewX,
-    skewY,
-    originX,
-    originY,
-    fontFamily,
-    fontSize,
-    fontWeight,
-    fontStyle,
-    style,
-    forwardedRef,
+    delayLongPress,
+    delayPressIn,
+    delayPressOut,
+    disabled,
+    focusable,
+    onBlur,
+    onFocus,
+    onLongPress,
     onPress,
     onPressIn,
     onPressOut,
-    onLongPress,
-    // @ts-ignore
+    rejectResponderTermination,
+
+    children,
+    fontFamily,
+    fontSize,
+    fontStyle,
+    fontWeight,
+    forwardedRef,
+    originX,
+    originY,
+    rotation,
+    scale,
+    skewX,
+    skewY,
+    style,
+    translate,
+
+    // other TouchableWithoutFeedback props
+    // unsupported by react-native-web implem
+    hasTVPreferredFocus,
+    hitSlop,
+    pressRetentionOffset,
+    touchSoundDisabled,
+    tvParallaxProperties,
+
     ...rest
   } = props;
-  const hasTouchableProperty =
-    onPress || onPressIn || onPressOut || onLongPress;
-  const clean: {
-    onStartShouldSetResponder?: (e: GestureResponderEvent) => boolean;
-    onResponderMove?: (e: GestureResponderEvent) => void;
-    onResponderGrant?: (e: GestureResponderEvent) => void;
-    onResponderRelease?: (e: GestureResponderEvent) => void;
-    onResponderTerminate?: (e: GestureResponderEvent) => void;
-    onResponderTerminationRequest?: (e: GestureResponderEvent) => boolean;
-    transform?: string;
-    style?: {};
+
+  const clean: typeof rest & {
     ref?: {};
-  } = {
-    ...(hasTouchableProperty
-      ? {
-          onStartShouldSetResponder:
-            self.touchableHandleStartShouldSetResponder,
-          onResponderTerminationRequest:
-            self.touchableHandleResponderTerminationRequest,
-          onResponderGrant: self.touchableHandleResponderGrant,
-          onResponderMove: self.touchableHandleResponderMove,
-          onResponderRelease: self.touchableHandleResponderRelease,
-          onResponderTerminate: self.touchableHandleResponderTerminate,
-        }
-      : null),
-    ...rest,
-  };
+    style?: {};
+    transform?: string;
+  } = rest;
 
   const transform = [];
 
@@ -155,7 +128,7 @@ const prepare = <T extends BaseProps>(
     clean.ref = forwardedRef;
   }
 
-  const styles: {
+  const additionalStyles: {
     fontStyle?: string;
     fontFamily?: string;
     fontSize?: NumberProp;
@@ -163,247 +136,137 @@ const prepare = <T extends BaseProps>(
   } = {};
 
   if (fontFamily != null) {
-    styles.fontFamily = fontFamily;
+    additionalStyles.fontFamily = fontFamily;
   }
   if (fontSize != null) {
-    styles.fontSize = fontSize;
+    additionalStyles.fontSize = fontSize;
   }
   if (fontWeight != null) {
-    styles.fontWeight = fontWeight;
+    additionalStyles.fontWeight = fontWeight;
   }
   if (fontStyle != null) {
-    styles.fontStyle = fontStyle;
+    additionalStyles.fontStyle = fontStyle;
   }
 
-  clean.style = resolve(style, styles);
+  clean.style = StyleSheet.compose(
+    styles.base,
+    resolve(style, additionalStyles),
+  );
 
-  return clean;
+  if (!(onLongPress || onPress || onPressIn || onPressOut)) {
+    return React.createElement(Component, rest, children);
+  }
+
+  const {
+    accessibilityLabel,
+    accessibilityLiveRegion,
+    accessibilityRole,
+    accessibilityState,
+    accessibilityValue,
+    accessible,
+    importantForAccessibility,
+    nativeID,
+    onLayout,
+    testID,
+
+    ...childProps
+  } = rest;
+
+  return React.createElement(
+    TouchableWithoutFeedback,
+    {
+      accessibilityLabel,
+      accessibilityLiveRegion,
+      accessibilityRole,
+      accessibilityState,
+      accessibilityValue,
+      accessible,
+      importantForAccessibility,
+      // @ts-expect-error
+      nativeID,
+      testID,
+
+      delayLongPress,
+      delayPressIn,
+      delayPressOut,
+      disabled,
+      focusable,
+      onBlur,
+      onFocus,
+      onLayout,
+      onLongPress,
+      onPress,
+      onPressIn,
+      onPressOut,
+      rejectResponderTermination,
+    },
+    React.createElement(Component, childProps, children),
+  );
 };
 
-const getBoundingClientRect = (node: SVGElement) => {
-  if (node) {
-    // @ts-ignore
-    const isElement = node.nodeType === 1; /* Node.ELEMENT_NODE */
-    // @ts-ignore
-    if (isElement && typeof node.getBoundingClientRect === 'function') {
-      // @ts-ignore
-      return node.getBoundingClientRect();
-    }
-  }
-};
+export const Circle = prepare(createComponent('circle'));
+export const ClipPath = prepare(createComponent('clipPath'));
+export const Defs = prepare(createComponent('defs'));
+export const Ellipse = prepare(createComponent('ellipse'));
+export const ForeignObject = prepare(createComponent('foreignObject'));
+export const Image = prepare(createComponent('image'));
+export const Line = prepare(createComponent('line'));
+export const LinearGradient = prepare(createComponent('linearGradient'));
+export const Marker = prepare(createComponent('marker'));
+export const Mask = prepare(createComponent('mask'));
+export const Path = prepare(createComponent('path'));
+export const Pattern = prepare(createComponent('pattern'));
+export const Polygon = prepare(createComponent('polygon'));
+export const Polyline = prepare(createComponent('polyline'));
+export const RadialGradient = prepare(createComponent('radialGradient'));
+export const Rect = prepare(createComponent('rect'));
+export const Stop = prepare(createComponent('stop'));
+export const Svg = prepare(createComponent('svg'));
+export const Symbol = prepare(createComponent('symbol'));
+export const TSpan = prepare(createComponent('tspan'));
+export const Text = prepare(createComponent('text'));
+export const TextPath = prepare(createComponent('textPath'));
+export const Use = prepare(createComponent('use'));
 
-const measureLayout = (
-  node: SVGElement,
-  callback: (
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-    left: number,
-    top: number,
-  ) => void,
-) => {
-  // @ts-ignore
-  const relativeNode = node && node.parentNode;
-  if (relativeNode) {
-    setTimeout(() => {
-      // @ts-ignore
-      const relativeRect = getBoundingClientRect(relativeNode);
-      const { height, left, top, width } = getBoundingClientRect(node);
-      const x = left - relativeRect.left;
-      const y = top - relativeRect.top;
-      callback(x, y, width, height, left, top);
-    }, 0);
-  }
-};
-
-function remeasure() {
-  // @ts-ignore
-  const tag = this.state.touchable.responderID;
-  if (tag == null) {
-    return;
-  }
-  // @ts-ignore
-  measureLayout(tag, this._handleQueryLayout);
-}
-
-export class WebShape<
-  P extends BaseProps = BaseProps,
-  C = {}
-> extends React.Component<P, C> {
-  [x: string]: unknown;
-  _remeasureMetricsOnActivation: () => void;
-  touchableHandleStartShouldSetResponder?: (
-    e: GestureResponderEvent,
-  ) => boolean;
-  touchableHandleResponderMove?: (e: GestureResponderEvent) => void;
-  touchableHandleResponderGrant?: (e: GestureResponderEvent) => void;
-  touchableHandleResponderRelease?: (e: GestureResponderEvent) => void;
-  touchableHandleResponderTerminate?: (e: GestureResponderEvent) => void;
-  touchableHandleResponderTerminationRequest?: (
-    e: GestureResponderEvent,
-  ) => boolean;
-  constructor(props: P, context: C) {
-    super(props, context);
-    SvgTouchableMixin(this);
-    this._remeasureMetricsOnActivation = remeasure.bind(this);
-  }
-}
-
-export class Circle extends WebShape {
-  render(): JSX.Element {
-    return createElement('circle', prepare(this));
-  }
-}
-
-export class ClipPath extends WebShape {
-  render(): JSX.Element {
-    return createElement('clipPath', prepare(this));
-  }
-}
-
-export class Defs extends WebShape {
-  render(): JSX.Element {
-    return createElement('defs', prepare(this));
-  }
-}
-
-export class Ellipse extends WebShape {
-  render(): JSX.Element {
-    return createElement('ellipse', prepare(this));
-  }
-}
-
-export class G extends WebShape<
-  BaseProps & {
+export const G = (
+  props: BaseProps & {
     x?: NumberProp;
     y?: NumberProp;
     translate?: string;
-  }
-> {
-  render(): JSX.Element {
-    const { x, y, ...rest } = this.props;
+  },
+) => {
+  const { x, y, ...rest } = props;
 
-    if ((x || y) && !rest.translate) {
-      rest.translate = `${x || 0}, ${y || 0}`;
-    }
-
-    return createElement('g', prepare(this, rest));
+  if ((x || y) && !rest.translate) {
+    rest.translate = `${x || 0}, ${y || 0}`;
   }
-}
 
-export class Image extends WebShape {
-  render(): JSX.Element {
-    return createElement('image', prepare(this));
-  }
-}
+  return prepare(createComponent('g'))(rest);
+};
 
-export class Line extends WebShape {
-  render(): JSX.Element {
-    return createElement('line', prepare(this));
-  }
-}
-
-export class LinearGradient extends WebShape {
-  render(): JSX.Element {
-    return createElement('linearGradient', prepare(this));
-  }
-}
-
-export class Path extends WebShape {
-  render(): JSX.Element {
-    return createElement('path', prepare(this));
-  }
-}
-
-export class Polygon extends WebShape {
-  render(): JSX.Element {
-    return createElement('polygon', prepare(this));
-  }
-}
-
-export class Polyline extends WebShape {
-  render(): JSX.Element {
-    return createElement('polyline', prepare(this));
-  }
-}
-
-export class RadialGradient extends WebShape {
-  render(): JSX.Element {
-    return createElement('radialGradient', prepare(this));
-  }
-}
-
-export class Rect extends WebShape {
-  render(): JSX.Element {
-    return createElement('rect', prepare(this));
-  }
-}
-
-export class Stop extends WebShape {
-  render(): JSX.Element {
-    return createElement('stop', prepare(this));
-  }
-}
-
-export class Svg extends WebShape {
-  render(): JSX.Element {
-    return createElement('svg', prepare(this));
-  }
-}
-
-export class Symbol extends WebShape {
-  render(): JSX.Element {
-    return createElement('symbol', prepare(this));
-  }
-}
-
-export class Text extends WebShape {
-  render(): JSX.Element {
-    return createElement('text', prepare(this));
-  }
-}
-
-export class TSpan extends WebShape {
-  render(): JSX.Element {
-    return createElement('tspan', prepare(this));
-  }
-}
-
-export class TextPath extends WebShape {
-  render(): JSX.Element {
-    return createElement('textPath', prepare(this));
-  }
-}
-
-export class Use extends WebShape {
-  render(): JSX.Element {
-    return createElement('use', prepare(this));
-  }
-}
-
-export class Mask extends WebShape {
-  render(): JSX.Element {
-    return createElement('mask', prepare(this));
-  }
-}
-
-export class ForeignObject extends WebShape {
-  render(): JSX.Element {
-    return createElement('foreignObject', prepare(this));
-  }
-}
-
-export class Marker extends WebShape {
-  render(): JSX.Element {
-    return createElement('marker', prepare(this));
-  }
-}
-
-export class Pattern extends WebShape {
-  render(): JSX.Element {
-    return createElement('pattern', prepare(this));
-  }
-}
+Circle.displayName = 'Circle';
+ClipPath.displayName = 'ClipPath';
+Defs.displayName = 'Defs';
+Ellipse.displayName = 'Ellipse';
+ForeignObject.displayName = 'ForeignObject';
+G.displayName = 'G';
+Image.displayName = 'Image';
+Line.displayName = 'Line';
+LinearGradient.displayName = 'LinearGradient';
+Marker.displayName = 'Marker';
+Mask.displayName = 'Mask';
+Path.displayName = 'Path';
+Pattern.displayName = 'Pattern';
+Polygon.displayName = 'Polygon';
+Polyline.displayName = 'Polyline';
+RadialGradient.displayName = 'RadialGradient';
+Rect.displayName = 'Rect';
+Stop.displayName = 'Stop';
+Svg.displayName = 'Svg';
+Symbol.displayName = 'Symbol';
+TSpan.displayName = 'TSpan';
+Text.displayName = 'Text';
+TextPath.displayName = 'TextPath';
+Use.displayName = 'Use';
 
 export default Svg;

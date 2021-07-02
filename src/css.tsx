@@ -65,6 +65,7 @@ function getName(elem: XmlAST): string {
 // get the text content of the node, and its children if it has any
 // getText: ( node:Node ) => text:String
 // returns empty string when there is no text
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getText(_node: XmlAST | string): string {
   return '';
 }

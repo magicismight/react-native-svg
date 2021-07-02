@@ -49,9 +49,9 @@
     "jest": "jest",
     "lint": "eslint --ext .ts,.tsx src",
     "peg": "pegjs -o src/lib/extract/transform.js ./src/lib/extract/transform.peg",
-    "prepare": "npm run flowgen && npm run bob",
+    "prepare": "yarn flowgen && yarn bob",
     "semantic-release": "semantic-release",
-    "test": "npm run lint && npm run tsc && npm run flow && npm run jest",
+    "test": "yarn lint && yarn tsc && yarn flow && yarn jest",
     "tsc": "tsc --noEmit"
   },
   "peerDependencies": {
@@ -60,17 +60,16 @@
   },
   "dependencies": {
     "css-select": "^2.1.0",
-    "css-tree": "^1.0.0-alpha.39"
+    "css-tree": "^1.1.2"
   },
   "devDependencies": {
-    "@react-native-community/bob": "^0.9.7",
+    "@react-native-community/bob": "^0.16.2",
     "@react-native-community/eslint-config": "0.0.7",
     "@react-native-community/eslint-plugin": "^1.0.0",
     "@semantic-release/changelog": "^5.0.0",
     "@semantic-release/git": "^9.0.0",
     "@types/css-tree": "^1.0.3",
-    "@types/react": "^16.9.23",
-    "@types/react-native": "^0.61.19",
+    "@types/react-native": "^0.63.37",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^25.1.0",
     "eslint": "^6.8.0",
@@ -83,8 +82,8 @@
     "jest": "^25.1.0",
     "pegjs": "^0.10.0",
     "prettier": "^1.19.1",
-    "react": "^16.13.0",
-    "react-native": "^0.61.5",
+    "react": "^16.14.0",
+    "react-native": "^0.63.4",
     "react-test-renderer": "^16.13.0",
     "semantic-release": "^17.0.4",
     "semantic-release-cli": "^5.2.3",

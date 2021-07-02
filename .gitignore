@@ -4,6 +4,7 @@
 
 # Xcode
 #
+build/
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -18,36 +19,40 @@ xcuserdata
 DerivedData
 *.hmap
 *.ipa
-gradle
-project.xcworkspace
+*.xcuserstate
 
-# Android/IJ
+# Android/IntelliJ
 #
+build/
 .idea
 .gradle
 local.properties
-build/
+*.iml
+
+# Visual Studio Code
+#
+.vscode/
 
 # node.js
 #
-node_modules
+node_modules/
 npm-debug.log
+yarn-error.log
 
+# BUCK
+buck-out/
+\.buckd/
+*.keystore
+!debug.keystore
 
-# webstorm
-#
-*.iml
+# Bundle artifact
+*.jsbundle
 
-# unfinished documents
-#
-cn-doc.md
+# CocoaPods
+Pods/
 
-# experimental code
-#
-experimental/
+# @react-native-community/bob
+lib/
 
-/lib/
-/flow-typed/
-
-# VS Code
-.vscode/
+# flow-typed
+flow-typed/
